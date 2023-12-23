@@ -17,4 +17,16 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
 
     @Query("SELECT p FROM Person p WHERE p.programmingLanguage = ?1 AND p.name = ?2")
     List<Person> searchByProgrammingLanguageAndName(String programmingLanguage, String name);
+
+    @Query("SELECT p.name, p.programmingLanguage FROM Person p")
+    List<Object[]> getPersonData();
+
+    @Query("SELECT p.name, p.programmingLanguage FROM Person p WHERE p.name = ?1")
+    List<Object[]> getPersonData(String name);
+
+    @Query("SELECT p.name, p.programmingLanguage FROM Person p WHERE p.programmingLanguage = ?1 AND p.name = ?2")
+    List<Object[]> getPersonData(String programmingLanguage, String name);
+
+    @Query("SELECT p.name, p.programmingLanguage FROM Person p WHERE p.programmingLanguage = ?1")
+    List<Object[]> getPersonDataByProgrammingLanguage(String programmingLanguage);
 }

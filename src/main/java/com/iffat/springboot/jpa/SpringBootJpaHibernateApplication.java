@@ -27,5 +27,10 @@ public class SpringBootJpaHibernateApplication implements CommandLineRunner {
         // List<Person> persons = personRepository.findByProgrammingLanguageAndName("Javascript", "Faqih");
         List<Person> persons = personRepository.searchByProgrammingLanguageAndName("Javascript", "Faqih");
         persons.stream().forEach(System.out::println);
+
+        List<Object[]> personValues = personRepository.getPersonData("Muhammad");
+        personValues.stream().forEach(person -> {
+            System.out.println(person[0] + " expert on " + person[1]);
+        });
     }
 }
