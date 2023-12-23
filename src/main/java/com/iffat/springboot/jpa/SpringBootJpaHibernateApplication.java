@@ -21,7 +21,11 @@ public class SpringBootJpaHibernateApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        List<Person> persons = personRepository.findAll();
+        // List<Person> persons = personRepository.findAll();
+        // List<Person> persons = personRepository.findByProgrammingLanguage("Javascript");
+        // List<Person> persons = personRepository.searchByProgrammingLanguage("Javascript");
+        // List<Person> persons = personRepository.findByProgrammingLanguageAndName("Javascript", "Faqih");
+        List<Person> persons = personRepository.searchByProgrammingLanguageAndName("Javascript", "Faqih");
         persons.stream().forEach(System.out::println);
     }
 }
