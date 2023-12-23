@@ -5,8 +5,18 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PersonRepository extends JpaRepository<Person, Long> {
+
+    @Query("SELECT p FROM Person p WHERE p.id = ?1")
+    Optional<Person> findOne(Long id);
+
+    @Query("SELECT p FROM Person p WHERE p.name = ?1")
+    Optional<Person> findOneName(String name);
+
+    @Query("SELECT p FROM Person p WHERE p.name LIKE %?1%")
+    Optional<Person> findOneLikeName(String name);
 
     List<Person> findByProgrammingLanguage(String programmingLanguage);
 

@@ -35,7 +35,8 @@ public class SpringBootJpaHibernateApplication implements CommandLineRunner {
 //        System.out.println(person);
 
         /* More simple */
-        personRepository.findById(1L).ifPresent(System.out::println);
+        // personRepository.findById(1L).ifPresent(System.out::println);
+        personRepository.findOne(1L).ifPresent(System.out::println);
     }
 
     public void list() {
