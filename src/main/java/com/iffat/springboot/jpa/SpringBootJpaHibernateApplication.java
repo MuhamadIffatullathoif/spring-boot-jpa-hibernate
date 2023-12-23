@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootApplication
 public class SpringBootJpaHibernateApplication implements CommandLineRunner {
@@ -21,6 +22,23 @@ public class SpringBootJpaHibernateApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        // list();
+        findOne();
+    }
+
+    public void findOne() {
+//        Person person = null;
+//        Optional<Person> optionalPerson = personRepository.findById(1L);
+//        if(optionalPerson.isPresent()) {
+//            person = optionalPerson.get();
+//        }
+//        System.out.println(person);
+
+        /* More simple */
+        personRepository.findById(1L).ifPresent(System.out::println);
+    }
+
+    public void list() {
         // List<Person> persons = personRepository.findAll();
         // List<Person> persons = personRepository.findByProgrammingLanguage("Javascript");
         // List<Person> persons = personRepository.searchByProgrammingLanguage("Javascript");
