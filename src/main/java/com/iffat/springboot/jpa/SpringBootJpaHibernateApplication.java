@@ -28,7 +28,36 @@ public class SpringBootJpaHibernateApplication implements CommandLineRunner {
         // findOne();
         // create();
         // update();
-        deleteByObject();
+        // deleteByObject();
+        personalizedQueries();
+    }
+
+    @Transactional(readOnly = true)
+    public void personalizedQueries() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter ID person: ");
+        long id = scanner.nextLong();
+
+        scanner.close();
+
+        String name = personRepository.getNameById(id);
+        System.out.println(name);
+
+        String idDB = personRepository.getIdById(id);
+        System.out.println(idDB);
+
+        String fullName = personRepository.getFullNameById(id);
+        System.out.println(fullName);
+
+        Optional<Object> optionalObject = personRepository.getPersonFullDataById(id);
+        if (optionalObject.isPresent()) {
+            Object[] fullData = (Object[]) optionalObject.get();
+            System.out.println("ID: " + fullData[0] + " name: " + fullData[1] + " lastname: " + fullData[2] + " programming language: " + fullData[3]);
+        }
+
+        List<Object[]> fullDatas = personRepository.getPersonFullData();
+        fullDatas.forEach(fullData -> System.out.println("ID: " + fullData[0] + " name: " + fullData[1] + " lastname: " + fullData[2] + " programming language: " + fullData[3]));
     }
 
     @Transactional
