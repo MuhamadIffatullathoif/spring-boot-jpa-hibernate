@@ -15,6 +15,15 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
     List<Person> findByIdBetween(Long id1, Long id2);
     List<Person> findAllByOrderByNameDesc();
 
+    @Query("SELECT p.name, LENGTH(p.name) FROM Person p WHERE LENGTH(p.name) = (SELECT MIN(LENGTH(p.name) ) FROM Person p)")
+    List<Object[]> getShortName();
+
+    @Query("SELECT p FROM Person p WHERE p.id = (SELECT MAX(p.id) FROM Person p)")
+    Optional<Person> getLastRegistration();
+
+    @Query("SELECT MIN(p.id), MAX(p.id), SUM(p.id), AVG(LENGTH(p.name)), COUNT(p.id) FROM Person p")
+    Object getResumeAggregationFunction();
+
     @Query("SELECT MIN(LENGTH(p.name)) FROM Person p")
     Integer getMinLengthName();
 

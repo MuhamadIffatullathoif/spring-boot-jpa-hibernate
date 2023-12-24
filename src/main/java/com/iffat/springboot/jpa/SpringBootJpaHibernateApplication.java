@@ -38,6 +38,21 @@ public class SpringBootJpaHibernateApplication implements CommandLineRunner {
     }
 
     @Transactional(readOnly = true)
+    public void queriesSubQuery(){
+        System.out.println("Short name");
+        List<Object[]> persons = personRepository.getShortName();
+        persons.forEach(person -> {
+            String name = (String) person[0];
+            Integer length = (Integer) person[1];
+            System.out.println("Name: " + name + " " + "Length: " + length);
+        });
+
+        System.out.println("Last Registration");
+        Optional<Person> optionalPerson = personRepository.getLastRegistration();
+        optionalPerson.ifPresent(System.out::println);
+    }
+
+    @Transactional(readOnly = true)
     public void queriesAggregateFunction() {
         System.out.println("Total person");
         Long totalPerson = personRepository.getTotalPerson();
@@ -56,7 +71,7 @@ public class SpringBootJpaHibernateApplication implements CommandLineRunner {
         persons.forEach(person -> {
             String name = (String) person[0];
             Integer lengthName = (Integer) person[1];
-            System.out.println("name: " + name + " " + "Length : " +lengthName);
+            System.out.println("name: " + name + " " + "Length : " + lengthName);
         });
 
         System.out.println("MIN of Length person name");
@@ -66,6 +81,10 @@ public class SpringBootJpaHibernateApplication implements CommandLineRunner {
         System.out.println("MAX of Length person name");
         Integer maxLengthPersonName = personRepository.getMaxLengthName();
         System.out.println(maxLengthPersonName);
+
+        System.out.println("Aggregate Function: Min, Max, Sum, Avg, Count");
+        Object[] aggregationFunction = (Object[]) personRepository.getResumeAggregationFunction();
+        System.out.println("Min: " + aggregationFunction[0] + "Max: " + aggregationFunction[1] + "Sum: " + aggregationFunction[2] + "Avg: " + aggregationFunction[3] + "Count: " + aggregationFunction[4]);
     }
 
     @Transactional(readOnly = true)
@@ -73,16 +92,16 @@ public class SpringBootJpaHibernateApplication implements CommandLineRunner {
         System.out.println("Between ID");
         // List<Person> persons = personRepository.findAllBetweenId();
         // List<Person> persons = personRepository.findAllBetweenId(2L,3L);
-        List<Person> persons = personRepository.findByIdBetween(2L,3L);
+        List<Person> persons = personRepository.findByIdBetween(2L, 3L);
         persons.forEach(System.out::println);
 
         System.out.println("Between name");
         // persons = personRepository.findAllBetweenName();
         // persons = personRepository.findAllBetweenName("K","N");
-        persons = personRepository.findByNameBetween("K","N");
+        persons = personRepository.findByNameBetween("K", "N");
         persons.forEach(System.out::println);
 
-        persons =personRepository.getAllOrdered();
+        persons = personRepository.getAllOrdered();
         persons.forEach(System.out::println);
     }
 
@@ -124,7 +143,7 @@ public class SpringBootJpaHibernateApplication implements CommandLineRunner {
     public void personalizedQueries2() {
         List<Object[]> allMixPerson = personRepository.findAllMixPerson();
         allMixPerson.forEach(person -> {
-            System.out.println("Programming Language: " + person[1] + " person: " +person[0]);
+            System.out.println("Programming Language: " + person[1] + " person: " + person[0]);
         });
 
         List<Person> persons = personRepository.findAllObjectPersonPersonalized();
@@ -133,6 +152,7 @@ public class SpringBootJpaHibernateApplication implements CommandLineRunner {
         List<PersonDto> personDtos = personRepository.findAllPersonDto();
         personDtos.forEach(System.out::println);
     }
+
     @Transactional(readOnly = true)
     public void personalizedQueries() {
         Scanner scanner = new Scanner(System.in);
