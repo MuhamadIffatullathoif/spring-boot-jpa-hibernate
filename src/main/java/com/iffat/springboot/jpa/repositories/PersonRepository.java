@@ -10,6 +10,18 @@ import java.util.Optional;
 
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
+    @Query("SELECT COUNT (DISTINCT (p.programmingLanguage)) FROM Person p")
+    Long findAllProgrammingLanguageDistinctCount();
+
+    @Query("SELECT DISTINCT (p.programmingLanguage) FROM Person p")
+    List<String> findAllProgrammingLanguageDistinct();
+
+    @Query("SELECT DISTINCT (p.name) FROM Person p")
+    List<String> findAllNamesDistinct();
+
+    @Query("SELECT p.name FROM Person p")
+    List<String> findAllNames();
+
     @Query("SELECT new com.iffat.springboot.jpa.dto.PersonDto(p.name, p.lastname) FROM Person p")
     List<PersonDto> findAllPersonDto();
 

@@ -30,7 +30,27 @@ public class SpringBootJpaHibernateApplication implements CommandLineRunner {
         // create();
         // update();
         // deleteByObject();
-        personalizedQueries2();
+        // personalizedQueries2();
+        personalizedQueryDistinct();
+    }
+
+    @Transactional(readOnly = true)
+    public void personalizedQueryDistinct() {
+        System.out.println("== Take all names in table Person ==");
+        List<String> names = personRepository.findAllNames();
+        names.forEach(System.out::println);
+
+        System.out.println("Use distinct to remove duplicate name");
+        names = personRepository.findAllNamesDistinct();
+        names.forEach(System.out::println);
+
+        System.out.println("Use distinct to remove duplicate programming language");
+        List<String> programmingLanguageDistinct = personRepository.findAllProgrammingLanguageDistinct();
+        programmingLanguageDistinct.forEach(System.out::println);
+
+        System.out.println("Use count and distinct to check total and remove duplicate");
+        Long countProgrammingLanguage = personRepository.findAllProgrammingLanguageDistinctCount();
+        System.out.println("Total: " + countProgrammingLanguage);
     }
 
     @Transactional
