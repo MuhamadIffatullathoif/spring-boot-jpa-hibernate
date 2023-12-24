@@ -1,5 +1,6 @@
 package com.iffat.springboot.jpa.repositories;
 
+import com.iffat.springboot.jpa.dto.PersonDto;
 import com.iffat.springboot.jpa.entities.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -8,6 +9,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PersonRepository extends JpaRepository<Person, Long> {
+
+    @Query("SELECT new com.iffat.springboot.jpa.dto.PersonDto(p.name, p.lastname) FROM Person p")
+    List<PersonDto> findAllPersonDto();
 
     @Query("SELECT p, p.programmingLanguage FROM Person p")
     List<Object[]> findAllMixPerson();

@@ -1,5 +1,6 @@
 package com.iffat.springboot.jpa;
 
+import com.iffat.springboot.jpa.dto.PersonDto;
 import com.iffat.springboot.jpa.entities.Person;
 import com.iffat.springboot.jpa.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,9 @@ public class SpringBootJpaHibernateApplication implements CommandLineRunner {
 
         List<Person> persons = personRepository.findAllObjectPersonPersonalized();
         persons.forEach(System.out::println);
+
+        List<PersonDto> personDtos = personRepository.findAllPersonDto();
+        personDtos.forEach(System.out::println);
     }
     @Transactional(readOnly = true)
     public void personalizedQueries() {
