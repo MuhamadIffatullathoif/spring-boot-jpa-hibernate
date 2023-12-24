@@ -9,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -34,7 +35,16 @@ public class SpringBootJpaHibernateApplication implements CommandLineRunner {
         // personalizedQueryDistinct();
         // personalizedQueryConcatUpperLowerCase();
         // personalizedQueriesBetween();
-        queriesAggregateFunction();
+        // queriesAggregateFunction();
+        queriesSubQuery();
+        queriesWhereIN();
+    }
+
+    @Transactional(readOnly = true)
+    public void queriesWhereIN() {
+        System.out.println("WHERE IN");
+        List<Person> persons = personRepository.getPersonByIds(Arrays.asList(1L,4L));
+        persons.forEach(System.out::println);
     }
 
     @Transactional(readOnly = true)
