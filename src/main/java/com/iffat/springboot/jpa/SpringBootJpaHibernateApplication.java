@@ -27,7 +27,37 @@ public class SpringBootJpaHibernateApplication implements CommandLineRunner {
         // list();
         // findOne();
         // create();
-        update();
+        // update();
+        deleteByObject();
+    }
+
+    @Transactional
+    public void deleteByObject() {
+        personRepository.findAll().forEach(System.out::println);
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter id person to delete : ");
+        long id = scanner.nextLong();
+
+        Optional<Person> optionalPerson = personRepository.findById(id);
+        optionalPerson.ifPresentOrElse(personRepository::delete, () -> System.out.println("ID person " + id + "not found"));
+
+        personRepository.findAll().forEach(System.out::println);
+    }
+
+    @Transactional
+    public void deleteOne() {
+        personRepository.findAll().forEach(System.out::println);
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter id person to delete : ");
+        long id = scanner.nextLong();
+
+        personRepository.deleteById(id);
+
+        personRepository.findAll().forEach(System.out::println);
+        scanner.close();
+
     }
 
     @Transactional
