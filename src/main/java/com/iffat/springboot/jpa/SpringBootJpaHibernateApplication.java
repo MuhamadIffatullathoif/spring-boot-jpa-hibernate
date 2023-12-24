@@ -29,9 +29,19 @@ public class SpringBootJpaHibernateApplication implements CommandLineRunner {
         // create();
         // update();
         // deleteByObject();
-        personalizedQueries();
+        personalizedQueries2();
     }
 
+    @Transactional
+    public void personalizedQueries2() {
+        List<Object[]> allMixPerson = personRepository.findAllMixPerson();
+        allMixPerson.forEach(person -> {
+            System.out.println("Programming Language: " + person[1] + " person: " +person[0]);
+        });
+
+        List<Person> persons = personRepository.findAllObjectPersonPersonalized();
+        persons.forEach(System.out::println);
+    }
     @Transactional(readOnly = true)
     public void personalizedQueries() {
         Scanner scanner = new Scanner(System.in);

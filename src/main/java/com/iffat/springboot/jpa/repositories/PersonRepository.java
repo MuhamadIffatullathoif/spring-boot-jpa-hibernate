@@ -9,6 +9,12 @@ import java.util.Optional;
 
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
+    @Query("SELECT p, p.programmingLanguage FROM Person p")
+    List<Object[]> findAllMixPerson();
+
+    @Query("SELECT new Person(p.name, p.programmingLanguage)FROM Person p")
+    List<Person> findAllObjectPersonPersonalized();
+
     @Query("SELECT p.id, p.name, p.lastname, p.programmingLanguage FROM Person p")
     List<Object[]> getPersonFullData();
 
