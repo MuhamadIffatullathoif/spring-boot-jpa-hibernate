@@ -10,6 +10,15 @@ import java.util.Optional;
 
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
+    @Query("SELECT LOWER( CONCAT(p.name,' ',p.lastname)) FROM Person p")
+    List<String> findAllFullNameConcatLower();
+
+    @Query("SELECT UPPER(CONCAT(p.name,' ',p.lastname)) FROM Person p")
+    List<String> findAllFullNameConcatUpper();
+
+    @Query("SELECT CONCAT(p.name, ' ', p.lastname) FROM Person p")
+    List<String> findAllFullNameConcat();
+
     @Query("SELECT COUNT (DISTINCT (p.programmingLanguage)) FROM Person p")
     Long findAllProgrammingLanguageDistinctCount();
 

@@ -31,7 +31,23 @@ public class SpringBootJpaHibernateApplication implements CommandLineRunner {
         // update();
         // deleteByObject();
         // personalizedQueries2();
-        personalizedQueryDistinct();
+        // personalizedQueryDistinct();
+        personalizedQueryConcatUpperLowerCase();
+    }
+
+    @Transactional(readOnly = true)
+    public void personalizedQueryConcatUpperLowerCase() {
+        System.out.println("Concat case");
+        List<String> fullNames = personRepository.findAllNames();
+        fullNames.forEach(System.out::println);
+
+        System.out.println("Upper case");
+        fullNames = personRepository.findAllFullNameConcatUpper();
+        fullNames.forEach(System.out::println);
+
+        System.out.println("Lower case");
+        fullNames = personRepository.findAllFullNameConcatLower();
+        fullNames.forEach(System.out::println);
     }
 
     @Transactional(readOnly = true)
