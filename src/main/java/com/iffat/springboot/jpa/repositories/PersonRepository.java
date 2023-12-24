@@ -10,6 +10,12 @@ import java.util.Optional;
 
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
+    @Query("SELECT p FROM Person p WHERE p.name BETWEEN 'E' AND 'J'")
+    List<Person> findAllBetweenName();
+
+    @Query("SELECT p FROM Person p WHERE p.id BETWEEN 2 AND 3")
+    List<Person> findAllBetweenId();
+
     @Query("SELECT LOWER( CONCAT(p.name,' ',p.lastname)) FROM Person p")
     List<String> findAllFullNameConcatLower();
 

@@ -32,7 +32,19 @@ public class SpringBootJpaHibernateApplication implements CommandLineRunner {
         // deleteByObject();
         // personalizedQueries2();
         // personalizedQueryDistinct();
-        personalizedQueryConcatUpperLowerCase();
+        // personalizedQueryConcatUpperLowerCase();
+        personalizedQueriesBetween();
+    }
+
+    @Transactional(readOnly = true)
+    public void personalizedQueriesBetween() {
+        System.out.println("Between ID");
+        List<Person> persons = personRepository.findAllBetweenId();
+        persons.forEach(System.out::println);
+
+        System.out.println("Between name");
+        persons = personRepository.findAllBetweenName();
+        persons.forEach(System.out::println);
     }
 
     @Transactional(readOnly = true)
