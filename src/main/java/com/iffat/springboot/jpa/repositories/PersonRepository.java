@@ -13,6 +13,28 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
     // query method from JpaRepository
     List<Person> findByNameBetween(String name1, String name2);
     List<Person> findByIdBetween(Long id1, Long id2);
+    List<Person> findAllByOrderByNameDesc();
+
+    @Query("SELECT MIN(LENGTH(p.name)) FROM Person p")
+    Integer getMinLengthName();
+
+    @Query("SELECT MAX(LENGTH(p.name)) FROM Person p")
+    Integer getMaxLengthName();
+
+    @Query("SELECT p.name, LENGTH(p.name) FROM Person p")
+    List<Object[]> getPersonNameLength();
+
+    @Query("SELECT COUNT(p) FROM Person p")
+    Long getTotalPerson();
+
+    @Query("SELECT MIN(p.id) FROM Person p")
+    Long getMinId();
+
+    @Query("SELECT MAX(p.id) FROM Person p")
+    Long getMaxId();
+
+    @Query("SELECT p FROM Person p ORDER BY p.name, p.lastname DESC")
+    List<Person> getAllOrdered();
 
     @Query("SELECT p FROM Person p WHERE p.name BETWEEN 'E' AND 'J'")
     List<Person> findAllBetweenName();

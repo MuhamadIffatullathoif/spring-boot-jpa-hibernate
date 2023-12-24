@@ -33,7 +33,39 @@ public class SpringBootJpaHibernateApplication implements CommandLineRunner {
         // personalizedQueries2();
         // personalizedQueryDistinct();
         // personalizedQueryConcatUpperLowerCase();
-        personalizedQueriesBetween();
+        // personalizedQueriesBetween();
+        queriesAggregateFunction();
+    }
+
+    @Transactional(readOnly = true)
+    public void queriesAggregateFunction() {
+        System.out.println("Total person");
+        Long totalPerson = personRepository.getTotalPerson();
+        System.out.println(totalPerson);
+
+        System.out.println("MIN ID of person");
+        Long minID = personRepository.getMinId();
+        System.out.println(minID);
+
+        System.out.println("MAX ID of person");
+        Long maxID = personRepository.getMaxId();
+        System.out.println(maxID);
+
+        System.out.println("LENGTH name of person");
+        List<Object[]> persons = personRepository.getPersonNameLength();
+        persons.forEach(person -> {
+            String name = (String) person[0];
+            Integer lengthName = (Integer) person[1];
+            System.out.println("name: " + name + " " + "Length : " +lengthName);
+        });
+
+        System.out.println("MIN of Length person name");
+        Integer minLengthPersonName = personRepository.getMinLengthName();
+        System.out.println(minLengthPersonName);
+
+        System.out.println("MAX of Length person name");
+        Integer maxLengthPersonName = personRepository.getMaxLengthName();
+        System.out.println(maxLengthPersonName);
     }
 
     @Transactional(readOnly = true)
@@ -48,6 +80,9 @@ public class SpringBootJpaHibernateApplication implements CommandLineRunner {
         // persons = personRepository.findAllBetweenName();
         // persons = personRepository.findAllBetweenName("K","N");
         persons = personRepository.findByNameBetween("K","N");
+        persons.forEach(System.out::println);
+
+        persons =personRepository.getAllOrdered();
         persons.forEach(System.out::println);
     }
 
