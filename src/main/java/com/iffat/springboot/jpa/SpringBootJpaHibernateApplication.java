@@ -26,7 +26,8 @@ public class SpringBootJpaHibernateApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         // list();
         // findOne();
-        create();
+        // create();
+        update();
     }
 
     @Transactional
@@ -43,6 +44,26 @@ public class SpringBootJpaHibernateApplication implements CommandLineRunner {
         Person person = new Person(null, name, lastname, programmingLanguage);
         Person personResponse = personRepository.save(person);
         personRepository.findOne(personResponse.getId()).ifPresent(System.out::println);
+        scanner.close();
+    }
+
+    @Transactional
+    public void update() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter id to search person want update: ");
+        long id = scanner.nextLong();
+        Optional<Person> optionalPerson = personRepository.findOne(id);
+        if (optionalPerson.isPresent()) {
+            Person person = optionalPerson.get();
+            System.out.println("Enter your programming language: ");
+            String programmingLanguage = scanner.next();
+            person.setProgrammingLanguage(programmingLanguage);
+            Person personObject = personRepository.save(person);
+            System.out.println(personObject);
+        } else {
+            System.out.println("Person no exist by id" + id);
+        }
+        scanner.close();
     }
 
     @Transactional(readOnly = true)
