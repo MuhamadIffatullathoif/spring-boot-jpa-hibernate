@@ -2,6 +2,8 @@ package com.iffat.springboot.jpa.entities;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "persons")
 public class Person {
@@ -16,6 +18,12 @@ public class Person {
     @Column(name = "programming_language")
     private String programmingLanguage;
 
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
     public Person() {
     }
 
@@ -29,6 +37,16 @@ public class Person {
         this.name = name;
         this.lastname = lastname;
         this.programmingLanguage = programmingLanguage;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.updatedAt = LocalDateTime.now();
     }
 
     public Long getId() {

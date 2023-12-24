@@ -29,15 +29,15 @@ public class SpringBootJpaHibernateApplication implements CommandLineRunner {
         // list();
         // findOne();
         // create();
-        // update();
+         update();
         // deleteByObject();
         // personalizedQueries2();
         // personalizedQueryDistinct();
         // personalizedQueryConcatUpperLowerCase();
         // personalizedQueriesBetween();
         // queriesAggregateFunction();
-        queriesSubQuery();
-        queriesWhereIN();
+        // queriesSubQuery();
+        // queriesWhereIN();
     }
 
     @Transactional(readOnly = true)
