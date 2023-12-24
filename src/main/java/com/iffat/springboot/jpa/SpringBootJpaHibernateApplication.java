@@ -39,11 +39,15 @@ public class SpringBootJpaHibernateApplication implements CommandLineRunner {
     @Transactional(readOnly = true)
     public void personalizedQueriesBetween() {
         System.out.println("Between ID");
-        List<Person> persons = personRepository.findAllBetweenId();
+        // List<Person> persons = personRepository.findAllBetweenId();
+        // List<Person> persons = personRepository.findAllBetweenId(2L,3L);
+        List<Person> persons = personRepository.findByIdBetween(2L,3L);
         persons.forEach(System.out::println);
 
         System.out.println("Between name");
-        persons = personRepository.findAllBetweenName();
+        // persons = personRepository.findAllBetweenName();
+        // persons = personRepository.findAllBetweenName("K","N");
+        persons = personRepository.findByNameBetween("K","N");
         persons.forEach(System.out::println);
     }
 
