@@ -23,7 +23,14 @@ public class SpringBootJpaHibernateApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         // list();
-        findOne();
+        // findOne();
+        create();
+    }
+
+    public void create() {
+        Person person = new Person(null, "Gian", "Mahadika", "PHP");
+        Person personResponse = personRepository.save(person);
+        System.out.println(personResponse);
     }
 
     public void findOne() {
