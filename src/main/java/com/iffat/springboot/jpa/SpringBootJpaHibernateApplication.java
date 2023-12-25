@@ -29,7 +29,7 @@ public class SpringBootJpaHibernateApplication implements CommandLineRunner {
         // list();
         // findOne();
         // create();
-         update();
+        update();
         // deleteByObject();
         // personalizedQueries2();
         // personalizedQueryDistinct();
